@@ -39,3 +39,6 @@ public/components/
 # Visual Studio Code
 .vscode
 jsconfig.json
+
+# ESLint
+*eslint*
