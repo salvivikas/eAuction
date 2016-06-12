@@ -7,8 +7,13 @@ var path = require('path');
 var appRoot = require('app-root-path');
 var models = require(path.join(appRoot.toString(), 'models'));
 
-// Get all active categories
+// Serve category page
 router.get('/category', function (req, res) {
+  res.sendFile(path.join(appRoot.toString(), 'views', 'admin', 'category.html'));
+});
+
+// Get all active categories
+router.get('/categoryList', function (req, res) {
   getAllCategories().then(function (categoryList) {
     res.json(categoryList);
   });
@@ -29,7 +34,7 @@ router.post('/category', function (req, res) {
       });
     },
     function (err) {
-      res.send('error');
+      res.status(500).send(err);
     });
 });
 
@@ -50,7 +55,7 @@ router.put('/category/:id', function (req, res) {
         });
       },
         function (err) {
-          res.send('error');
+          res.status(500).send(err);
         });
     }
     else {
@@ -75,7 +80,7 @@ router.delete('/category/:id', function (req, res) {
         });
       },
         function (err) {
-          res.send('error');
+          res.status(500).send(err);
         });
     }
     else {
@@ -92,4 +97,5 @@ var getAllCategories = function () {
     order: '"CategoryCode" ASC'
   });
 }
+
 module.exports = router;

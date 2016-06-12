@@ -2,13 +2,40 @@
 <html>
 
 <head>
-    <title>
-        Home Page
-    </title>
+    <title>eAuction - Home</title>
+    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <script src="components/jquery/dist/jquery.min.js"></script>
+    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="components/angular/angular.min.js"></script>
+    <script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="components/angular-smart-table/dist/smart-table.min.js"></script>
+    <script src="javascripts/ngApp.js"></script>
+    <script src="javascripts/categoryController.js"></script>
 </head>
 
-<body>
-    <h1>Welcome to express</h1>
+<body ng-app="ngApp">
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" ui-sref="home">eAuction</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"/></a>
+                <ul class="dropdown-menu">
+                    <li><a ui-sref="category">Category</a></li>
+                    <li><a ui-sref="product">Product</a></li>
+                </ul>
+            </li>
+            <li><a ui-sref="about">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div ui-view></div>
+    </div>
 </body>
 
 </html>

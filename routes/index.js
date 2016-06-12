@@ -10,4 +10,7 @@ router.get('/', function(req, res, next) {
   res.sendFile(path.join(appRoot.toString(), 'views', 'index.html'));
 });
 
+router.get('/home', function(req, res, next) {
+  res.sendFile(path.join(appRoot.toString(), 'views', 'home.html'));
+});
 module.exports = router;
