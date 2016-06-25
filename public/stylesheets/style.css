@@ -10,6 +10,7 @@ a {
 th {
     background-color: #dcd5d5;
     color: #353434;
+    cursor: pointer;
 }
 
 .st-sort-ascent:before {
@@ -18,4 +19,8 @@ th {
 
 .st-sort-descent:before {
     content: '\25BC';
+}
+
+.space{
+    margin-bottom: 20px;
 }

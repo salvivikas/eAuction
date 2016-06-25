@@ -6,12 +6,13 @@
 <body>
     <h4>Category</h4>
     <hr/>
+    <input type="button" name="addCategory" value="Add Category" class="btn btn-primary space" ng-click="add()">
     <table st-table="displayedCollection" st-safe-src="categories" class="table table-hover table-condensed">
         <thead>
             <tr>
                 <th st-sort="Id">ID</th>
-                <th st-sort="CategoryCode">CategoryCode</th>
-                <th st-sort="CategoryName">CategoryName</th>
+                <th st-sort="CategoryCode">Category Code</th>
+                <th st-sort="CategoryName">Category Name</th>
                 <th st-sort="IsActive">IsActive</th>
                 <th></th>
             </tr>

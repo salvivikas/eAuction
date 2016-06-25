@@ -14,6 +14,10 @@ ngApp.controller('categoryController', ['$scope', '$http',
                 $scope.categories = [];
             });
 
+        $scope.add = function () {
+            alert('add new category');
+        }
+
         $scope.edit = function (category) {
             $http.put('/admin/category/' + category.Id).then(function (response) {
                 $scope.categories = response.data;
