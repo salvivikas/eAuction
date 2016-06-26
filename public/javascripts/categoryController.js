@@ -1,7 +1,7 @@
 'use strict'
 
-ngApp.controller('categoryController', ['$scope', '$http',
-    function ($scope, $http) {
+ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
+    function ($scope, $http, modalService) {
         $scope.mode = 'Add';
         $scope.category = {};
         $scope.categories = [];
@@ -62,11 +62,26 @@ ngApp.controller('categoryController', ['$scope', '$http',
         };
 
         $scope.delete = function (category) {
-            $http.delete('/admin/category/' + category.Id).then(function (response) {
-                $scope.categories = response.data;
-            },
-                function (response) {
-                    alert("failure");
-                });
+            var modalOptions = {
+                closeButtonText: 'Cancel',
+                actionButtonText: 'Delete Category',
+                headerText: 'Delete Category',
+                bodyText: 'Are you sure you want to delete this category?'
+            };
+
+            modalService.showModal({}, modalOptions).then(function (result) {
+                $http.delete('/admin/category/' + category.Id).then(function (response) {
+                    $scope.categories = response.data;
+                },
+                    function (response) {
+                        alert("failure");
+                    });
+            });
+            // $http.delete('/admin/category/' + category.Id).then(function (response) {
+            //     $scope.categories = response.data;
+            // },
+            //     function (response) {
+            //         alert("failure");
+            //     });
         };
     }]);
