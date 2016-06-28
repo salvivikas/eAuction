@@ -1,6 +1,5 @@
 <head>
     <title>Category</title>
-    <!--<script src="javascripts\categoryController.js"></script>-->
 </head>
 
 <body>
@@ -49,17 +48,27 @@
                     <h4 class="modal-title">{{mode}} Category</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label>Category Code:</label>
-                        <input class="form-control" id="categorycode" ng-model="category.CategoryCode">
-                    </div>
-                    <div class="form-group">
-                        <label>Category Name:</label>
-                        <input class="form-control" id="categoryname" ng-model="category.CategoryName">
-                    </div>
+                    <form name="categoryform" id="categoryform" novalidate>
+                        <div class="form-group"  ng-class="{ 'has-error' : categoryform.categorycode.$invalid && !categoryform.categorycode.$pristine }">
+                            <label>Category Code:</label>
+                            <input class="form-control" name="categorycode" ng-model="category.CategoryCode" required ng-maxlength="10">
+                             <div class="help-block" ng-messages="categoryform.categorycode.$error" ng-if="!categoryform.categorycode.$pristine">
+                                <p ng-message="maxlength">Category code is too long.</p>
+                                <p ng-message="required">Category code is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Category Name:</label>
+                            <input class="form-control" name="categoryname" ng-model="category.CategoryName" required ng-maxlength="20">
+                            <div class="help-block" ng-messages="categoryform.categoryname.$error" ng-if="!categoryform.categoryname.$pristine">
+                                <p ng-message="maxlength">Category name is too long.</p>
+                                <p ng-message="required">Category name is required.</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-click="saveModal()">Save</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="categoryform.$invalid" ng-click="saveModal(categoryform.$valid)">Save</button>
                     <button type="button" class="btn btn-default" ng-click="cancelModal()">Cancel</button>
                 </div>
             </div>

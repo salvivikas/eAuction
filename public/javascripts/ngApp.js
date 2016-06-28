@@ -1,6 +1,7 @@
 'use strict'
 
 var ngApp = angular.module('ngApp', [
+    'ngMessages',
     'ui.router',
     'smart-table'
     ,'ui.bootstrap'

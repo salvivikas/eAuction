@@ -17,6 +17,7 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
         $scope.openAdd = function () {
             $scope.mode = 'Add';
             $scope.category = {};
+            $scope.categoryform.$setPristine();
             $("#myModal").modal();
         }
 
@@ -26,12 +27,14 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
             $("#myModal").modal();
         }
 
-        $scope.saveModal = function () {
-            if ($scope.mode == 'Add') {
-                $scope.add();
-            }
-            else {
-                $scope.edit($scope.category);
+        $scope.saveModal = function (isValid) {
+            if (isValid) { // Client side validations are OK
+                if ($scope.mode == 'Add') {
+                    $scope.add();
+                }
+                else {
+                    $scope.edit($scope.category);
+                }
             }
         };
 
@@ -77,11 +80,5 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
                         alert("failure");
                     });
             });
-            // $http.delete('/admin/category/' + category.Id).then(function (response) {
-            //     $scope.categories = response.data;
-            // },
-            //     function (response) {
-            //         alert("failure");
-            //     });
         };
     }]);

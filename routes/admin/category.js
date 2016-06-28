@@ -34,7 +34,7 @@ router.post('/category', function (req, res) {
       });
     },
     function (err) {
-      res.status(500).send(err);
+      res.status(422).send(err);
     });
 });
 
@@ -99,3 +99,4 @@ var getAllCategories = function () {
 }
 
 module.exports = router;
+///. sequelize-isunique-validator
