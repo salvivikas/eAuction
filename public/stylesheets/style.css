@@ -24,3 +24,11 @@ th {
 .space{
     margin-bottom: 20px;
 }
+
+.error
+{
+    list-style-type: none;
+    padding-left: 0;
+    margin-left:0;
+    color: red;
+}

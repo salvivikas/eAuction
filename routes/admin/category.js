@@ -55,7 +55,7 @@ router.put('/category/:id', function (req, res) {
         });
       },
         function (err) {
-          res.status(500).send(err);
+          res.status(422).send(err);
         });
     }
     else {
@@ -80,7 +80,7 @@ router.delete('/category/:id', function (req, res) {
         });
       },
         function (err) {
-          res.status(500).send(err);
+          res.status(422).send(err);
         });
     }
     else {

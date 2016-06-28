@@ -1,10 +1,11 @@
 'use strict'
 
-ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
-    function ($scope, $http, modalService) {
+ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'utilService',
+    function ($scope, $http, modalService, utilService) {
         $scope.mode = 'Add';
         $scope.category = {};
         $scope.categories = [];
+        $scope.serverErrors = [];
 
         $http.get('/admin/categorylist')
             .then(function (response) {
@@ -16,14 +17,16 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
 
         $scope.openAdd = function () {
             $scope.mode = 'Add';
-            $scope.category = {};
+            $scope.category = {CategoryCode : '', CategoryName : ''};
+            $scope.serverErrors = [];
             $scope.categoryform.$setPristine();
             $("#myModal").modal();
         }
 
         $scope.openEdit = function (category) {
             $scope.mode = 'Edit';
-            $scope.category = JSON.parse(JSON.stringify(category)); // pass a copy of the object
+            $scope.serverErrors = [];
+            $scope.category = utilService.deepClone(category); // pass a copy of the object
             $("#myModal").modal();
         }
 
@@ -41,6 +44,7 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
         $scope.cancelModal = function () {
             $scope.mode = 'Add';
             $scope.category = {};
+            $scope.categoryform.$setPristine();
             $('#myModal').modal('toggle'); // Hide Modal
         };
 
@@ -50,7 +54,10 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
                 $('#myModal').modal('toggle'); // Hide Modal
             },
                 function (response) {
-                    alert("failure");
+                    $scope.serverErrors = [];
+                    if (response.status == 422) {
+                        $scope.serverErrors = utilService.getErrorMessages(response.data.errors);
+                    }
                 });
         };
 
@@ -60,7 +67,10 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService',
                 $('#myModal').modal('toggle'); // Hide Modal
             },
                 function (response) {
-                    alert("failure");
+                    $scope.serverErrors = [];
+                    if (response.status == 422) {
+                        $scope.serverErrors = utilService.getErrorMessages(response.data.errors);
+                    }
                 });
         };
 

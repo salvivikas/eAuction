@@ -48,11 +48,14 @@
                     <h4 class="modal-title">{{mode}} Category</h4>
                 </div>
                 <div class="modal-body">
+                    <ul class="error" ng-repeat="error in serverErrors">
+                        <li>{{error}}</li>
+                    </ul>
                     <form name="categoryform" id="categoryform" novalidate>
-                        <div class="form-group"  ng-class="{ 'has-error' : categoryform.categorycode.$invalid && !categoryform.categorycode.$pristine }">
+                        <div class="form-group" ng-class="{ 'has-error' : categoryform.categorycode.$invalid && !categoryform.categorycode.$pristine }">
                             <label>Category Code:</label>
                             <input class="form-control" name="categorycode" ng-model="category.CategoryCode" required ng-maxlength="10">
-                             <div class="help-block" ng-messages="categoryform.categorycode.$error" ng-if="!categoryform.categorycode.$pristine">
+                            <div class="help-block" ng-messages="categoryform.categorycode.$error" ng-if="!categoryform.categorycode.$pristine">
                                 <p ng-message="maxlength">Category code is too long.</p>
                                 <p ng-message="required">Category code is required.</p>
                             </div>
