@@ -32,3 +32,11 @@ th {
     margin-left:0;
     color: red;
 }
+
+.refresh
+{
+    float:right;
+    font-size: 25px;
+    padding-right: 15px;
+    padding-top: 5px;
+}
