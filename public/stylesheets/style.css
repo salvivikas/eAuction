@@ -33,10 +33,11 @@ th {
     color: red;
 }
 
-.refresh
+.button-refresh
 {
     float:right;
     font-size: 25px;
     padding-right: 15px;
     padding-top: 5px;
+    cursor: pointer;
 }

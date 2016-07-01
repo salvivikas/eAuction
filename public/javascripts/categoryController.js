@@ -7,17 +7,9 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'util
         $scope.categories = [];
         $scope.serverErrors = [];
 
-        $http.get('/admin/categorylist')
-            .then(function (response) {
-                $scope.categories = response.data;
-            },
-            function (response) {
-                $scope.categories = [];
-            });
-
         $scope.openAdd = function () {
             $scope.mode = 'Add';
-            $scope.category = {CategoryCode : '', CategoryName : ''};
+            $scope.category = { CategoryCode: '', CategoryName: '' };
             $scope.serverErrors = [];
             $scope.categoryform.$setPristine();
             $("#myModal").modal();
@@ -91,4 +83,16 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'util
                     });
             });
         };
+
+        $scope.refresh = function () {
+            $http.get('/admin/categorylist')
+                .then(function (response) {
+                    $scope.categories = response.data;
+                },
+                function (response) {
+                    $scope.categories = [];
+                });
+        };
+
+        $scope.refresh();
     }]);

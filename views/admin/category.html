@@ -7,9 +7,7 @@
     <hr/>
     <div>
         <input type="button" name="addCategory" value="Add Category" class="btn btn-primary space" ng-click="openAdd()">
-        <a class="refresh" href="#">
-            <span class="glyphicon glyphicon-refresh refresh"></span>
-        </a>
+        <span class="glyphicon glyphicon-refresh button-refresh" ng-click="refresh()"></span>
     </div>
     <table st-table="displayedCollection" st-safe-src="categories" class="table table-hover table-condensed">
         <thead>
