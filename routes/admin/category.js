@@ -99,4 +99,3 @@ var getAllCategories = function () {
 }
 
 module.exports = router;
-///. sequelize-isunique-validator

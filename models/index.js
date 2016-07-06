@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 var fs        = require('fs');
 var path      = require('path');
@@ -6,8 +6,7 @@ var Sequelize = require('sequelize');
 var env       = process.env.NODE_ENV || 'development';
 var config    = require('../config/database.json')[env];
 
-require('sequelize-isunique-validator')(Sequelize);
-
+require('../modules/isuniqueValidator')(Sequelize);
 var sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 var db = {};
