@@ -25,7 +25,8 @@ ngApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         })
         .state('product', {
             url: '/product',
-            templateUrl: '/admin/product'
+            templateUrl: '/admin/product',
+            controller: 'productController'
         });
 });
 /*
