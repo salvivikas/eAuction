@@ -41,3 +41,13 @@ th {
     padding-top: 5px;
     cursor: pointer;
 }
+
+.user-welcome
+{
+    padding-top:5px;
+    padding-right:20px;
+}
+
+button-trans {
+    background-color: red;
+}
