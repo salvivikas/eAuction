@@ -38,7 +38,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right user-welcome">
             <li class="user-welcome">
-                <button uib-popover-template="logoutPopover.templateUrl" popover-placement="bottom-right" type="button" class="btn btn-default"><span class="glyphicon glyphicon-user "></span> Welcome, [[username]]</button>
+                <button uib-popover-template="logoutPopover.templateUrl" popover-placement="bottom-right" type="button" class="btn-trans"><span class="glyphicon glyphicon-user "></span> Welcome, [[username]]</button>
             </li>
         </ul>
     </nav>
@@ -50,11 +50,16 @@
 
     <!-- Logout popover template -->
     <script type="text/ng-template " id="logoutPopover.html ">
-        <div>
-        <p>[[username]]</p>
-        <p>[[email]]</p>
-        <hr>
-        <button class="btn btn-primary"><span class="glyphicon glyphicon-log-out"></span> Log out</button>
+        <div id="logout">
+        </style>
+            <div id="logout-body">
+                <p class="text-info">[[username]]</p>
+                <p class="text-info">[[email]]</p>
+                <a href="#">Change Password</a>
+            </div>
+            <div class="clearfix" id="logout-footer">
+                <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-log-out"></span> Log out</button>
+            </div>
         </div>
     </script>
 </body>
