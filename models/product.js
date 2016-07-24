@@ -1,26 +1,30 @@
 'use strict'
 
 module.exports = function (sequelize, DataTypes) {
-    var Categories = sequelize.define('Category', {
+    var Products = sequelize.define('Product', {
         Id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        CategoryCode: {
+        CategoryId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        ProductCode: {
             type: DataTypes.STRING,
             allowNull: false,
             isUnique: true,
             validate: {
-                isUnique: sequelize.validateIsUnique('CategoryCode', 'Category Code is being used. Please choose a different Category Code.')
+                isUnique: sequelize.validateIsUnique('ProductCode', 'Product Code is being used. Please choose a different Product Code.')
             }
         },
-        CategoryName: {
+        ProductName: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                isUnique: sequelize.validateIsUnique('CategoryName', 'Category Name is being used. Please choose a different Category Name.')
+                isUnique: sequelize.validateIsUnique('ProductName', 'Product Name is being used. Please choose a different Product Name.')
             }
         },
         IsActive: {
@@ -28,8 +32,8 @@ module.exports = function (sequelize, DataTypes) {
             allowNull: false
         }
     }, {
-            tableName: 'Category'
+            tableName: 'Product'
         });
 
-    return Categories;
+    return Products;
 }
