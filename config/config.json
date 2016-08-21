@@ -1,0 +1,3 @@
+{
+    "connectionString": "postgres://postgres:gotham123@localhost:5432/eauction"
+}

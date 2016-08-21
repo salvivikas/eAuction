@@ -1,0 +1,5 @@
+eAuction:
+    admin:
+        ✔ @high Move category from sequelize to inline query @done
+        ✔ Finish product page @done
+        ☐ product definition page

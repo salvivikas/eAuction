@@ -42,26 +42,36 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'util
 
         $scope.add = function () {
             $http.post('/admin/category', $scope.category).then(function (response) {
-                $scope.categories = response.data;
-                $('#myModal').modal('toggle'); // Hide Modal
+                $scope.serverErrors = [];
+                if (response.data.success) {
+                    $scope.categories = response.data.data;
+                    $('#myModal').modal('toggle'); // Hide Modal
+                } else {
+                    $scope.serverErrors.push(response.data.data); // Show server errors
+                }
             },
                 function (response) {
                     $scope.serverErrors = [];
                     if (response.status == 422) {
-                        $scope.serverErrors = utilService.getErrorMessages(response.data.errors);
+                        $scope.serverErrors = push(response.data.data); //utilService.getErrorMessages(response.data.errors);
                     }
                 });
         };
 
         $scope.edit = function (category) {
             $http.put('/admin/category/' + category.Id, category).then(function (response) {
-                $scope.categories = response.data;
-                $('#myModal').modal('toggle'); // Hide Modal
+                $scope.serverErrors = [];
+                if (response.data.success) {
+                    $scope.categories = response.data.data;
+                    $('#myModal').modal('toggle'); // Hide Modal
+                } else {
+                    $scope.serverErrors.push(response.data.data); // Show server errors
+                }
             },
                 function (response) {
                     $scope.serverErrors = [];
                     if (response.status == 422) {
-                        $scope.serverErrors = utilService.getErrorMessages(response.data.errors);
+                        $scope.serverErrors = push(response.data.data); //utilService.getErrorMessages(response.data.errors);
                     }
                 });
         };
@@ -76,7 +86,9 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'util
 
             modalService.showModal({}, modalOptions).then(function (result) {
                 $http.delete('/admin/category/' + category.Id).then(function (response) {
-                    $scope.categories = response.data;
+                    if (response.data.success) {
+                        $scope.categories = response.data.data;
+                    }
                 },
                     function (response) {
                         alert("failure");
@@ -87,12 +99,14 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'util
         $scope.refresh = function () {
             $http.get('/admin/categorylist')
                 .then(function (response) {
-                    $scope.categories = response.data;
+                    if (response.data.success) {
+                        $scope.categories = response.data.data;
+                    }
                 },
                 function (response) {
                     $scope.categories = [];
                 });
         };
-
+        
         $scope.refresh();
     }]);
