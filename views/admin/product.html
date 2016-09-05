@@ -19,6 +19,7 @@
                 <th st-sort="ProductName">Product Name</th>
                 <!--<th st-sort="IsActive">IsActive</th>-->
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,9 @@
                 <td>
                     <span ng-click="openEdit(product)" class="btn btn-primary">Edit</span>
                     <span ng-click="delete(product)" class="btn btn-danger">Delete</span>
+                </td>
+                <td>
+                    <span ng-click="openProductDef(product)" class="btn btn-primary">Product Definition</span>                    
                 </td>
             </tr>
         </tbody>

@@ -1,33 +1,36 @@
 'use strict'
 
-ngApp.controller('productController', ['$scope', '$http', '$state', 'modalService', 'utilService',
-    function ($scope, $http, $state, modalService, utilService) {
+ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'modalService', 'utilService',
+    function ($scope, $http, $stateParams, modalService, utilService) {
+
         $scope.mode = 'Add';
-        $scope.product = {};
-        $scope.products = [];
-        $scope.categories = [];
+        $scope.productDef = {};
+        $scope.product = $stateParams.product;
+        $scope.productDefList = [];
+        $scope.dataTypes = ['Text', 'Numeric', 'YesNo'];
         $scope.serverErrors = [];
 
         $scope.openAdd = function () {
             $scope.mode = 'Add';
-            $scope.product = {
+            $scope.productDef = {
                 Id: 0,
-                CategoryId: 0,
-                CategoryName: '',
-                ProductCode: '',
-                ProductName: ''
+                ProductId: $scope.product.Id,
+                Header: '',
+                Description: '',
+                DataType: 'Text',
+                IsMandatory: false
             };
             $scope.serverErrors = [];
-            $scope.productform.$setPristine();
+            $scope.productdefform.$setPristine();
             $("#myModal").modal();
         }
 
-        $scope.openEdit = function (product) {
+        $scope.openEdit = function (productDef) {
             $scope.mode = 'Edit';
             $scope.serverErrors = [];
-            $scope.product = utilService.deepClone(product); // pass a copy of the object
+            $scope.productDef = utilService.deepClone(productDef); // pass a copy of the object
             $("#myModal").modal();
-        }
+        };
 
         $scope.saveModal = function (isValid) {
             if (isValid) { // Client side validations are OK
@@ -35,23 +38,23 @@ ngApp.controller('productController', ['$scope', '$http', '$state', 'modalServic
                     $scope.add();
                 }
                 else {
-                    $scope.edit($scope.product);
+                    $scope.edit($scope.productDef);
                 }
             }
-        };
+        }
 
         $scope.cancelModal = function () {
             $scope.mode = 'Add';
-            $scope.category = {};
-            $scope.productform.$setPristine();
+            $scope.productDef = {};
+            $scope.productdefform.$setPristine();
             $('#myModal').modal('toggle'); // Hide Modal
         };
 
         $scope.add = function () {
-            $http.post('/admin/product', $scope.product).then(function (response) {
+            $http.post('/admin/productdef', $scope.productDef).then(function (response) {
                 $scope.serverErrors = [];
                 if (response.data.success) {
-                    $scope.products = response.data.data;
+                    $scope.productDefList = response.data.data;
                     $('#myModal').modal('toggle'); // Hide Modal
                 } else {
                     $scope.serverErrors.push(response.data.data); // Show server errors
@@ -65,11 +68,11 @@ ngApp.controller('productController', ['$scope', '$http', '$state', 'modalServic
                 });
         };
 
-        $scope.edit = function (product) {
-            $http.put('/admin/product/' + product.Id, product).then(function (response) {
+        $scope.edit = function (productDef) {
+            $http.put('/admin/productdef/' + productDef.Id, productDef).then(function (response) {
                 $scope.serverErrors = [];
                 if (response.data.success) {
-                    $scope.products = response.data.data;
+                    $scope.productDefList = response.data.data;
                     $('#myModal').modal('toggle'); // Hide Modal
                 } else {
                     $scope.serverErrors.push(response.data.data); // Show server errors
@@ -83,17 +86,21 @@ ngApp.controller('productController', ['$scope', '$http', '$state', 'modalServic
                 });
         };
 
-        $scope.delete = function (product) {
+        $scope.delete = function (productDef) {
             var modalOptions = {
                 closeButtonText: 'Cancel',
-                actionButtonText: 'Delete Product',
-                headerText: 'Delete Product',
-                bodyText: 'Are you sure you want to delete this product?'
+                actionButtonText: 'Delete Product Definition',
+                headerText: 'Delete Product Definition',
+                bodyText: 'Are you sure you want to delete this product definition?'
             };
 
             modalService.showModal({}, modalOptions).then(function (result) {
-                $http.delete('/admin/product/' + product.Id).then(function (response) {
-                    $scope.products = response.data.data;
+                var data = {
+                    id: productDef.Id,
+                    productId: productDef.ProductId
+                }
+                $http.delete('/admin/productdef/' + JSON.stringify(data), JSON.stringify(productDef)).then(function (response) {
+                    $scope.productDefList = response.data.data;
                 },
                     function (response) {
                         alert("failure");
@@ -101,34 +108,17 @@ ngApp.controller('productController', ['$scope', '$http', '$state', 'modalServic
             });
         };
 
-        $scope.refresh = function () {
-            $http.get('/admin/productlist')
+        $scope.getProductDefList = function () {
+            $http.get('/admin/productdeflist/' + $scope.product.Id)
                 .then(function (response) {
                     if (response.data.success) {
-                        $scope.products = response.data.data;
+                        $scope.productDefList = response.data.data;
                     }
                 },
                 function (response) {
-                    $scope.products = [];
+                    $scope.productDefList = [];
                 });
         };
 
-        $scope.getCategories = function () {
-            $http.get('/admin/categorylist')
-                .then(function (response) {
-                    if (response.data.success) {
-                        $scope.categories = response.data.data;
-                    }
-                },
-                function (response) {
-                    $scope.categories = [];
-                });
-        };
-
-        $scope.openProductDef = function (product) {
-            $state.go('productdef', { 'product': utilService.deepClone(product) }); // pass a copy of the object
-        };
-
-        $scope.refresh();
-        $scope.getCategories();
-    }]);
+        $scope.getProductDefList();
+    }])

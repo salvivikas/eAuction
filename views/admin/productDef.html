@@ -1,0 +1,98 @@
+<head>
+    <title>Product Definition</title>
+</head>
+
+<body>
+    <h4>Product Definition</h4>
+    <!--<h5>{{product}}</h5>-->
+    <p><strong>Product Code : </strong><span>{{product.ProductCode}}</span></p>
+    <p><strong>Product Name : </strong><span>{{product.ProductName}}</span></p>
+    <hr/>
+    <div>
+        <input type="button" name="addProductDef" value="Add Product Definition" class="btn btn-primary space" ng-click="openAdd()">
+        <!--<span class="glyphicon glyphicon-refresh button-refresh" ng-click="refresh()"></span>-->
+    </div>
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <!--<th>Id</th>
+                <th>ProductId</th>-->
+                <th>Header</th>
+                <th>Description</th>
+                <th>DataType</th>
+                <th>IsMandatory</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="productDef in productDefList">
+                <!--<td>{{productDef.Id}}</td>
+                <td>{{productDef.ProductId}}</td>-->
+                <td>{{productDef.Header}}</td>
+                <td>{{productDef.Description}}</td>
+                <td>{{productDef.DataType}}</td>
+                <td>{{productDef.IsMandatory}}</td>
+                <td>
+                    <span ng-click="openEdit(productDef)" class="btn btn-primary">Edit</span>
+                    <span ng-click="delete(productDef)" class="btn btn-danger">Delete</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Modal -->
+    <div id="myModal" class="modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="cancelModal()">&times;</button>
+                    <h4 class="modal-title">Product Definition - {{product.ProductName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="error" ng-repeat="error in serverErrors">
+                        <li>{{error}}</li>
+                    </ul>
+                    <p>{{productDef.IsMandatory}}</p>
+                    <form name="productdefform" id="productdefform" novalidate>
+                        <div class="form-group" ng-class="{ 'has-error' : productdefform.header.$invalid && !productdefform.header.$pristine }">
+                            <label>Header:</label>
+                            <input class="form-control" name="header" ng-model="productDef.Header" required ng-maxlength="15">
+                            <div class="help-block" ng-messages="productdefform.header.$error" ng-if="!productdefform.header.$pristine">
+                                <p ng-message="maxlength">Header is too long.</p>
+                                <p ng-message="required">Header is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{ 'has-error' : productdefform.description.$invalid && !productdefform.description.$pristine }">
+                            <label>Description:</label>
+                            <input class="form-control" name="description" ng-model="productDef.Description" ng-maxlength="50">
+                            <div class="help-block" ng-messages="productdefform.description.$error" ng-if="!productdefform.description.$pristine">
+                                <p ng-message="maxlength">Description is too long.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Data Type:</label>
+                            <select class="form-control" name="dataType" ng-model="productDef.DataType" ng-options="x for x in dataTypes" required> 
+                            </select>
+                        </div>
+                        <!--<div class="form-group">
+                            <label>Mandatory:</label>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="optYes" ng-model="productDef.IsMandatory">Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="optNo" ng-model="!productDef.IsMandatory">No
+                                </label>
+                            </div>
+                        </div>-->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-disabled="productdefform.$invalid" ng-click="saveModal(productdefform.$valid)">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="cancelModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

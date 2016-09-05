@@ -4,8 +4,8 @@ var ngApp = angular.module('ngApp', [
     'ngMessages',
     'ui.router',
     'smart-table'
-    ,'ui.bootstrap'
-    ]);
+    , 'ui.bootstrap'
+]);
 
 ngApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     //$urlRouterProvider.otherwise('/home');
@@ -27,6 +27,14 @@ ngApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/product',
             templateUrl: '/admin/product',
             controller: 'productController'
+        })
+        .state('productdef', {
+            url: '/productdef',
+            templateUrl: '/admin/productdef',
+            controller: 'productDefController',
+            params: {
+                product: null
+            }
         });
 });
 /*
