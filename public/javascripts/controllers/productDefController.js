@@ -121,4 +121,10 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
         };
 
         $scope.getProductDefList();
-    }])
+    }]);
+
+ngApp.filter('yesNo', function () {
+    return function (input) {
+        return input ? 'Yes' : 'No';
+    }
+});

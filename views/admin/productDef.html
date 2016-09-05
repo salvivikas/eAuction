@@ -20,7 +20,7 @@
                 <th>Header</th>
                 <th>Description</th>
                 <th>DataType</th>
-                <th>IsMandatory</th>
+                <th>Mandatory</th>
                 <th></th>
             </tr>
         </thead>
@@ -31,7 +31,7 @@
                 <td>{{productDef.Header}}</td>
                 <td>{{productDef.Description}}</td>
                 <td>{{productDef.DataType}}</td>
-                <td>{{productDef.IsMandatory}}</td>
+                <td>{{productDef.IsMandatory | yesNo}}</td>
                 <td>
                     <span ng-click="openEdit(productDef)" class="btn btn-primary">Edit</span>
                     <span ng-click="delete(productDef)" class="btn btn-danger">Delete</span>
@@ -75,17 +75,17 @@
                             <select class="form-control" name="dataType" ng-model="productDef.DataType" ng-options="x for x in dataTypes" required> 
                             </select>
                         </div>
-                        <!--<div class="form-group">
+                        <div class="form-group">
                             <label>Mandatory:</label>
                             <div>
                                 <label class="radio-inline">
-                                    <input type="radio" name="optYes" ng-model="productDef.IsMandatory">Yes
+                                    <input type="radio" ng-model="productDef.IsMandatory" ng-value="true">Yes
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="optNo" ng-model="!productDef.IsMandatory">No
+                                    <input type="radio" ng-model="productDef.IsMandatory" ng-value="false">No
                                 </label>
                             </div>
-                        </div>-->
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
