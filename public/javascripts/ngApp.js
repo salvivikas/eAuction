@@ -3,8 +3,9 @@
 var ngApp = angular.module('ngApp', [
     'ngMessages',
     'ui.router',
-    'smart-table'
-    , 'ui.bootstrap'
+    'smart-table',
+    'ui.bootstrap',
+    'ngFileSaver'
 ]);
 
 ngApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {

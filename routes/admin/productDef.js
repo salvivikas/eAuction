@@ -3,7 +3,10 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var fs = require('fs');
 var appRoot = require('app-root-path');
+var excel = require('exceljs');
+
 var productDefDal = require(path.join(appRoot.toString(), 'dal', 'productDef'));
 
 // Serve product page
@@ -72,6 +75,31 @@ router.delete('/productdef/:id', function (req, res) {
     }
     else {
       return res.json(result);
+    }
+  });
+});
+
+router.get('/downloadexcel/:id', function (req, res) {
+  var product = JSON.parse(req.params.id);
+  productDefDal.getAllItems(product.id, function (err, result) {
+    if (err) {
+      return res.status(422).send('Error in processing record.');
+    }
+    else {
+      var excelPath = path.join(appRoot.toString(), 'files', product.productName + '.xlsx');
+      var workbook = new excel.Workbook();
+      var sheet = workbook.addWorksheet('Catalog');
+      var data = [];
+      for (var i = 0; i < result.data.length; i++) {
+        data.push(result.data[i].Header);
+      }
+      sheet.addRow(data);
+      workbook.xlsx.writeFile(excelPath)
+        .then(function () {
+          // res.setHeader('Content-disposition', 'attachment; filename=data.xlsx');
+          // res.setHeader('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          res.download(excelPath);
+        });
     }
   });
 });

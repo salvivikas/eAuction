@@ -2,6 +2,8 @@
 
 var express = require('express');
 var path = require('path');
+var fs = require('fs');
+var appRoot = require('app-root-path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -23,6 +25,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/admin', admin.category, admin.product, admin.productDef);
+
+// Create download folder
+  var excelPath = path.join(appRoot.toString(), 'files');
+  if (!fs.existsSync(excelPath)) {
+    fs.mkdirSync(excelPath);
+  };
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

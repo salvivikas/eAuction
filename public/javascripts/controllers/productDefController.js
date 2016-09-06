@@ -1,7 +1,7 @@
 'use strict'
 
-ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'modalService', 'utilService',
-    function ($scope, $http, $stateParams, modalService, utilService) {
+ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'modalService', 'utilService','FileSaver', 'Blob',
+    function ($scope, $http, $stateParams, modalService, utilService, FileSaver, Blob) {
 
         $scope.mode = 'Add';
         $scope.productDef = {};
@@ -105,6 +105,36 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
                     function (response) {
                         alert("failure");
                     });
+            });
+        };
+
+        $scope.download = function () {
+            var data = {
+                id: $scope.product.Id,
+                productName: $scope.product.ProductName
+            }
+            // $http.get('/admin/downloadexcel/' + JSON.stringify(data))
+            //     .then(function (response) {
+            //     },
+            //     function (response) {
+            //         alert('failure');
+            //     });
+
+            $http({
+                url: '/admin/downloadexcel/' + JSON.stringify(data),
+                method: "GET",
+                // data: {
+                //     uri: uri
+                // },
+                responseType: 'blob'
+            }).success(function (data, status, headers, config) {
+                var type = headers('Content-Type');
+                var blob = new Blob([data], { type: type });
+                //var fileName = headers('content-disposition');
+                var fileName = headers('content-disposition').match(/filename="(.+)"/)[1];
+                FileSaver.saveAs(blob, fileName);
+            }).error(function (data, status, headers, config) {
+                console.log('Unable to download the file')
             });
         };
 
