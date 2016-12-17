@@ -2,7 +2,7 @@
 
 var pg = require('pg');
 var config = require('../config/config.json')
-//var connectionString = 'postgres://postgres:gotham123@localhost:5432/eauction';
+
 var selectQuery = 'select id as "Id", categorycode as "CategoryCode", categoryname as "CategoryName" from category where isactive = true order by categoryname;'
 
 exports.getAllItems = function (callback) {
