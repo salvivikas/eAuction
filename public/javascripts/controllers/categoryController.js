@@ -1,7 +1,7 @@
 'use strict'
 
-ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'utilService',
-    function ($scope, $http, modalService, utilService) {
+ngApp.controller('categoryController', ['$scope', 'modalService', 'utilService', 'CategoryService',
+    function ($scope, modalService, utilService, CategoryService) {
         $scope.mode = 'Add';
         $scope.category = {};
         $scope.categories = [];
@@ -41,39 +41,32 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'util
         };
 
         $scope.add = function () {
-            $http.post('/admin/category', $scope.category).then(function (response) {
+            CategoryService.add($scope.category).then(function (response) {
                 $scope.serverErrors = [];
-                if (response.data.success) {
-                    $scope.categories = response.data.data;
+                if (response.success) {
+                    $scope.categories = response.data;
                     $('#myModal').modal('toggle'); // Hide Modal
                 } else {
-                    $scope.serverErrors.push(response.data.data); // Show server errors
+                    $scope.serverErrors.push(response.data); // Show server errors
                 }
-            },
-                function (response) {
-                    $scope.serverErrors = [];
-                    if (response.status == 422) {
-                        $scope.serverErrors = push(response.data.data); //utilService.getErrorMessages(response.data.errors);
-                    }
-                });
+            }, function (response) {
+                $scope.serverErrors.push(response.data);
+            });
         };
 
         $scope.edit = function (category) {
-            $http.put('/admin/category/' + category.Id, category).then(function (response) {
+
+            CategoryService.edit(category).then(function (response) {
                 $scope.serverErrors = [];
-                if (response.data.success) {
-                    $scope.categories = response.data.data;
+                if (response.success) {
+                    $scope.categories = response.data;
                     $('#myModal').modal('toggle'); // Hide Modal
                 } else {
-                    $scope.serverErrors.push(response.data.data); // Show server errors
+                    $scope.serverErrors.push(response.data); // Show server errors
                 }
-            },
-                function (response) {
-                    $scope.serverErrors = [];
-                    if (response.status == 422) {
-                        $scope.serverErrors = push(response.data.data); //utilService.getErrorMessages(response.data.errors);
-                    }
-                });
+            }, function (response) {
+                $scope.serverErrors.push(response.data);
+            });
         };
 
         $scope.delete = function (category) {
@@ -85,28 +78,25 @@ ngApp.controller('categoryController', ['$scope', '$http', 'modalService', 'util
             };
 
             modalService.showModal({}, modalOptions).then(function (result) {
-                $http.delete('/admin/category/' + category.Id).then(function (response) {
-                    if (response.data.success) {
-                        $scope.categories = response.data.data;
+                CategoryService.delete(category).then(function (response) {
+                    if (response.success) {
+                        $scope.categories = response.data;
                     }
-                },
-                    function (response) {
-                        alert("failure");
-                    });
+                }, function (response) {
+                    alert("failure");
+                });
             });
         };
 
         $scope.refresh = function () {
-            $http.get('/admin/categorylist')
-                .then(function (response) {
-                    if (response.data.success) {
-                        $scope.categories = response.data.data;
-                    }
-                },
-                function (response) {
-                    $scope.categories = [];
-                });
+            CategoryService.getAll().then(function (response) {
+                if (response.success) {
+                    $scope.categories = response.data;
+                }
+            }, function (response) {
+                $scope.categories = [];
+            });
         };
-        
+
         $scope.refresh();
     }]);
