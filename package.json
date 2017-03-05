@@ -18,5 +18,13 @@
     "sequelize": "^3.23.3",
     "sequelize-isunique-validator": "^1.1.1",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.6.2",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.5.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-spec-reporter": "0.0.30"
   }
 }
