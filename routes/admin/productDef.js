@@ -96,8 +96,8 @@ router.get('/downloadexcel/:id', function (req, res) {
       sheet.addRow(data);
       workbook.xlsx.writeFile(excelPath)
         .then(function () {
-          // res.setHeader('Content-disposition', 'attachment; filename=data.xlsx');
-          // res.setHeader('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+          res.setHeader('Content-disposition', 'attachment; filename=' + product.productName + '.xlsx');
+          res.setHeader('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
           res.download(excelPath);
         });
     }

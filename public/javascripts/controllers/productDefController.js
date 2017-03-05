@@ -1,6 +1,6 @@
 'use strict'
 
-ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'modalService', 'utilService','FileSaver', 'Blob',
+ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'modalService', 'utilService', 'FileSaver', 'Blob',
     function ($scope, $http, $stateParams, modalService, utilService, FileSaver, Blob) {
 
         $scope.mode = 'Add';
@@ -113,29 +113,20 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
                 id: $scope.product.Id,
                 productName: $scope.product.ProductName
             }
-            // $http.get('/admin/downloadexcel/' + JSON.stringify(data))
-            //     .then(function (response) {
-            //     },
-            //     function (response) {
-            //         alert('failure');
-            //     });
-
             $http({
                 url: '/admin/downloadexcel/' + JSON.stringify(data),
                 method: "GET",
-                // data: {
-                //     uri: uri
-                // },
                 responseType: 'blob'
-            }).success(function (data, status, headers, config) {
-                var type = headers('Content-Type');
+            }).then(function (response) {
+                var type = response.headers('Content-Type');
                 var blob = new Blob([data], { type: type });
                 //var fileName = headers('content-disposition');
-                var fileName = headers('content-disposition').match(/filename="(.+)"/)[1];
+                var fileName = response.headers('content-disposition').match(/filename="(.+)"/)[1];
                 FileSaver.saveAs(blob, fileName);
-            }).error(function (data, status, headers, config) {
-                console.log('Unable to download the file')
-            });
+            },
+                function (response) {
+                    console.log('Unable to download the file');
+                });
         };
 
         $scope.getProductDefList = function () {
