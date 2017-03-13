@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = function (sequelize, DataTypes) {
   var Categories = sequelize.define('Category', {
@@ -27,9 +27,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false
     }
-  }, {
+  },
+    {
       tableName: 'Category'
     });
 
   return Categories;
-}
+};

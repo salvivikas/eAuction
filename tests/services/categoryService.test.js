@@ -3,36 +3,30 @@
 describe('CategoryService Service', function () {
 
   var CategoryService;
-  var $q;
   var $httpBackend;
   var result;
 
   var categoryList = {
-    "success": true,
-    "data": [
+    success: true,
+    data: [
       {
-        "Id": 1,
-        "CategoryCode": "C01",
-        "CategoryName": "Automobiles"
+        'Id': 1,
+        'CategoryCode': 'C01',
+        'CategoryName': 'Automobiles'
       },
       {
-        "Id": 2,
-        "CategoryCode": "C02",
-        "CategoryName": "Electronics"
+        'Id': 2,
+        'CategoryCode': 'C02',
+        'CategoryName': 'Electronics'
       }
     ]
-  }
+  };
 
   var errorMessage = 'Error in processing record.';
 
-  var errorData = {
-    "success": false,
-    "data": []
-  };
-
   beforeEach(angular.mock.module('ngApp'));
 
-  beforeEach(inject(function (_CategoryService_, _$httpBackend_) {
+  beforeEach(angular.mock.inject(function (_CategoryService_, _$httpBackend_) {
     CategoryService = _CategoryService_;
     //$q = _$q_;
     $httpBackend = _$httpBackend_;
@@ -75,8 +69,8 @@ describe('CategoryService Service', function () {
       expect(result.data.length).toBe(2);
 
       expect(result.data[0].Id).toBe(1);
-      expect(result.data[0].CategoryCode).toBe("C01");
-      expect(result.data[0].CategoryName).toBe("Automobiles");
+      expect(result.data[0].CategoryCode).toBe('C01');
+      expect(result.data[0].CategoryName).toBe('Automobiles');
     });
 
     it('should return an error message in case of any server error', function () {
@@ -121,12 +115,12 @@ describe('CategoryService Service', function () {
       expect(result.data.length).toBe(2);
 
       expect(result.data[0].Id).toBe(1);
-      expect(result.data[0].CategoryCode).toBe("C01");
-      expect(result.data[0].CategoryName).toBe("Automobiles");
+      expect(result.data[0].CategoryCode).toBe('C01');
+      expect(result.data[0].CategoryName).toBe('Automobiles');
     });
 
     it('should return success as false and an error message if same category is added', function () {
-      $httpBackend.whenPOST('/admin/category').respond(200, { "success": false, "data": "error message" });
+      $httpBackend.whenPOST('/admin/category').respond(200, { 'success': false, 'data': 'error message' });
 
       expect(CategoryService.add).not.toHaveBeenCalled();
       expect(result).toEqual({});
@@ -142,7 +136,7 @@ describe('CategoryService Service', function () {
 
       expect(result.success).toEqual(false);
 
-      expect(result.data).toBe("error message");
+      expect(result.data).toBe('error message');
     });
 
     it('should send an error message in case of any error on server', function () {
@@ -235,6 +229,6 @@ describe('CategoryService Service', function () {
       $httpBackend.flush();
       expect(result).toEqual(errorMessage);
     });
-  })*/;
+  })*/
 
 });

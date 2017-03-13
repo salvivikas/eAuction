@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-ngApp.controller('categoryController', ['$scope', 'modalService', 'utilService', 'CategoryService',
+angular.module('ngApp').controller('categoryController', ['$scope', 'modalService', 'utilService', 'CategoryService',
   function ($scope, modalService, utilService, CategoryService) {
     $scope.mode = 'Add';
     $scope.category = {};
@@ -12,15 +12,15 @@ ngApp.controller('categoryController', ['$scope', 'modalService', 'utilService',
       $scope.category = { CategoryCode: '', CategoryName: '' };
       $scope.serverErrors = [];
       $scope.categoryform.$setPristine();
-      $("#myModal").modal();
-    }
+      $('#myModal').modal();
+    };
 
     $scope.openEdit = function (category) {
       $scope.mode = 'Edit';
       $scope.serverErrors = [];
       $scope.category = utilService.deepClone(category); // pass a copy of the object
-      $("#myModal").modal();
-    }
+      $('#myModal').modal();
+    };
 
     $scope.saveModal = function (isValid) {
       if (isValid) { // Client side validations are OK
@@ -83,7 +83,7 @@ ngApp.controller('categoryController', ['$scope', 'modalService', 'utilService',
             $scope.categories = response.data;
           }
         }, function (response) {
-          alert("failure");
+          alert('failure');
         });
       });
     };

@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-ngApp.controller('productController', ['$scope', '$state', 'modalService', 'utilService', 'ProductService', 'CategoryService',
+angular.module('ngApp').controller('productController', ['$scope', '$state', 'modalService', 'utilService', 'ProductService', 'CategoryService',
   function ($scope, $state, modalService, utilService, ProductService, CategoryService) {
     $scope.mode = 'Add';
     $scope.product = {};
@@ -19,15 +19,15 @@ ngApp.controller('productController', ['$scope', '$state', 'modalService', 'util
       };
       $scope.serverErrors = [];
       $scope.productform.$setPristine();
-      $("#myModal").modal();
-    }
+      $('#myModal').modal();
+    };
 
     $scope.openEdit = function (product) {
       $scope.mode = 'Edit';
       $scope.serverErrors = [];
       $scope.product = utilService.deepClone(product); // pass a copy of the object
-      $("#myModal").modal();
-    }
+      $('#myModal').modal();
+    };
 
     $scope.saveModal = function (isValid) {
       if (isValid) { // Client side validations are OK
@@ -90,7 +90,7 @@ ngApp.controller('productController', ['$scope', '$state', 'modalService', 'util
           $scope.products = response.data;
         },
           function (response) {
-            alert("failure");
+            alert('failure');
           });
       });
     };

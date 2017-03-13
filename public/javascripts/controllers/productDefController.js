@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'modalService', 'utilService', 'FileSaver', 'Blob',
+angular.module('ngApp').controller('productDefController', ['$scope', '$http', '$stateParams', 'modalService', 'utilService', 'FileSaver', 'Blob',
   function ($scope, $http, $stateParams, modalService, utilService, FileSaver, Blob) {
 
     $scope.mode = 'Add';
@@ -22,14 +22,14 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
       };
       $scope.serverErrors = [];
       $scope.productdefform.$setPristine();
-      $("#myModal").modal();
-    }
+      $('#myModal').modal();
+    };
 
     $scope.openEdit = function (productDef) {
       $scope.mode = 'Edit';
       $scope.serverErrors = [];
       $scope.productDef = utilService.deepClone(productDef); // pass a copy of the object
-      $("#myModal").modal();
+      $('#myModal').modal();
     };
 
     $scope.saveModal = function (isValid) {
@@ -41,7 +41,7 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
           $scope.edit($scope.productDef);
         }
       }
-    }
+    };
 
     $scope.cancelModal = function () {
       $scope.mode = 'Add';
@@ -98,12 +98,12 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
         var data = {
           id: productDef.Id,
           productId: productDef.ProductId
-        }
+        };
         $http.delete('/admin/productdef/' + JSON.stringify(data), JSON.stringify(productDef)).then(function (response) {
           $scope.productDefList = response.data.data;
         },
           function (response) {
-            alert("failure");
+            alert('failure');
           });
       });
     };
@@ -112,10 +112,10 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
       var data = {
         id: $scope.product.Id,
         productName: $scope.product.ProductName
-      }
+      };
       $http({
         url: '/admin/downloadexcel/' + JSON.stringify(data),
-        method: "GET",
+        method: 'GET',
         responseType: 'blob'
       }).then(function (response) {
         var type = response.headers('Content-Type');
@@ -125,7 +125,7 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
         FileSaver.saveAs(blob, fileName);
       },
         function (response) {
-          console.log('Unable to download the file');
+          //console.log('Unable to download the file');
         });
     };
 
@@ -144,8 +144,8 @@ ngApp.controller('productDefController', ['$scope', '$http', '$stateParams', 'mo
     $scope.getProductDefList();
   }]);
 
-ngApp.filter('yesNo', function () {
+angular.module('ngApp').filter('yesNo', function () {
   return function (input) {
     return input ? 'Yes' : 'No';
-  }
+  };
 });

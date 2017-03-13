@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 // AngularJS Modal Service - Dan Wahlin
-ngApp.service('modalService', ['$uibModal',
+angular.module('ngApp').service('modalService', ['$uibModal',
   function ($uibModal) {
 
     var modalDefaults = {
@@ -44,7 +44,7 @@ ngApp.service('modalService', ['$uibModal',
           $scope.modalOptions.close = function (result) {
             $uibModalInstance.dismiss('cancel');
           };
-        }
+        };
       }
 
       return $uibModal.open(tempModalDefaults).result;

@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-ngApp.controller('adminIndexController', ['$scope',
+angular.module('ngApp').controller('adminIndexController', ['$scope',
   function ($scope) {
 
     $scope.testmessage = 'adminIndexController';

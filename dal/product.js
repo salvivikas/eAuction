@@ -1,16 +1,15 @@
-'use strict'
+'use strict';
 
 var pg = require('pg');
-var config = require('../config/config.json')
+var config = require('../config/config.json');
 //var connectionString = 'postgres://postgres:gotham123@localhost:5432/eauction';
-var selectQuery = 'select p.id as "Id", p.categoryid as "CategoryId", p.productcode as "ProductCode", p.productname as "ProductName", c.categoryname "CategoryName" from product as p inner join category c on p.categoryid=c.id where p.isactive = true order by productname;'
+var selectQuery = 'select p.id as "Id", p.categoryid as "CategoryId", p.productcode as "ProductCode", p.productname as "ProductName", c.categoryname "CategoryName" from product as p inner join category c on p.categoryid=c.id where p.isactive = true order by productname;';
 
 exports.getAllItems = function (callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     // Handle connection errors
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
     client.query(selectQuery, function (err, result) {
@@ -24,7 +23,6 @@ exports.insert = function (product, callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
 
@@ -58,7 +56,6 @@ exports.update = function (product, callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
 
@@ -92,7 +89,6 @@ exports.delete = function (product, callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
     client.query('update product set isactive = false where id = $1;', [product.id]);

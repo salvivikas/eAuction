@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // TODO : use INDICATIVE for validations
 var express = require('express');

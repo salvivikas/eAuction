@@ -1,9 +1,9 @@
-'use strict'
+'use strict';
 
 var validateIsUnique = function (col, msg) {
   var conditions = { where: {} };
   msg = (!msg) ? col + ' must be unique' : msg;
-  console.log(msg);
+  //console.log(msg);
   return function (value, next) {
     var self = this;
     this.Model.describe().then(function (schema) {

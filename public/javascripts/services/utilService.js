@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 
 // Utility methods
-ngApp.service('utilService', [
+angular.module('ngApp').service('utilService', [
   function () {
     this.deepClone = function (obj) {
       return JSON.parse(JSON.stringify(obj));

@@ -1,4 +1,6 @@
-ngApp.service('CategoryService', ['$http', '$q', function ($http, $q) {
+'use strict';
+
+angular.module('ngApp').service('CategoryService', ['$http', '$q', function ($http, $q) {
   var CategoryService = {};
 
   CategoryService.getAll = function () {

@@ -1,16 +1,15 @@
-'use strict'
+'use strict';
 
 var pg = require('pg');
-var config = require('../config/config.json')
+var config = require('../config/config.json');
 
-var selectQuery = 'select id as "Id", categorycode as "CategoryCode", categoryname as "CategoryName" from category where isactive = true order by categoryname;'
+var selectQuery = 'select id as "Id", categorycode as "CategoryCode", categoryname as "CategoryName" from category where isactive = true order by categoryname;';
 
 exports.getAllItems = function (callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     // Handle connection errors
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
 
@@ -25,7 +24,6 @@ exports.insert = function (category, callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
 
@@ -59,7 +57,6 @@ exports.update = function (category, callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
 
@@ -93,7 +90,6 @@ exports.delete = function (category, callback) {
   pg.connect(config.connectionString, function (err, client, done) {
     if (err) {
       done();
-      console.log(err);
       callback(err, null);
     }
 

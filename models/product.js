@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 module.exports = function (sequelize, DataTypes) {
   var Products = sequelize.define('Product', {
@@ -31,9 +31,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       allowNull: false
     }
-  }, {
+  },
+    {
       tableName: 'Product'
     });
 
   return Products;
-}
+};

@@ -1,4 +1,6 @@
-ngApp.service('ProductService', ['$http', '$q', function ($http, $q) {
+'use strict';
+
+angular.module('ngApp').service('ProductService', ['$http', '$q', function ($http, $q) {
   var ProductService = {};
 
   ProductService.getAll = function () {

@@ -41,7 +41,7 @@ public/components/
 jsconfig.json
 
 # ESLint
-*eslint*
+# *eslint*
 
 # Misc
 files

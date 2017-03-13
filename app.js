@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var express = require('express');
 var path = require('path');
@@ -30,7 +30,7 @@ app.use('/admin', admin.category, admin.product, admin.productDef);
 var excelPath = path.join(appRoot.toString(), 'files');
 if (!fs.existsSync(excelPath)) {
   fs.mkdirSync(excelPath);
-};
+}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -54,7 +54,7 @@ if (app.get('env') === 'production') {
     res.status(err.status || 500);
     res.sendFile(path.join(__dirname, 'views', 'error.html'));
   });
-};
+}
 
 
 module.exports = app;
