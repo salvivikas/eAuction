@@ -1,42 +1,46 @@
-'use strict'
+'use strict';
 
 var ngApp = angular.module('ngApp', [
-    'ngMessages',
-    'ui.router',
-    'smart-table',
-    'ui.bootstrap',
-    'ngFileSaver'
+  'ngMessages',
+  'ui.router',
+  'smart-table',
+  'ui.bootstrap',
+  'ngFileSaver'
 ]);
 
-ngApp.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    //$urlRouterProvider.otherwise('/home');
+angular.module('ngApp').config(['$qProvider', function ($qProvider) {
+  $qProvider.errorOnUnhandledRejections(false);
+}]);
 
-    // use the HTML5 History API & set HTM5 mode true
-    //    $locationProvider.html5Mode(true);
-    $stateProvider
-        // HOME STATES AND NESTED VIEWS
-        .state('home', {
-            url: '/home',
-            templateUrl: '/home'
-        })
-        .state('category', {
-            url: '/category',
-            templateUrl: '/admin/category',
-            controller: 'categoryController'
-        })
-        .state('product', {
-            url: '/product',
-            templateUrl: '/admin/product',
-            controller: 'productController'
-        })
-        .state('productdef', {
-            url: '/productdef',
-            templateUrl: '/admin/productdef',
-            controller: 'productDefController',
-            params: {
-                product: null
-            }
-        });
+angular.module('ngApp').config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  //$urlRouterProvider.otherwise('/home');
+
+  // use the HTML5 History API & set HTM5 mode true
+  //    $locationProvider.html5Mode(true);
+  $stateProvider
+    // HOME STATES AND NESTED VIEWS
+    .state('home', {
+      url: '/home',
+      templateUrl: '/home'
+    })
+    .state('category', {
+      url: '/category',
+      templateUrl: '/admin/category',
+      controller: 'categoryController'
+    })
+    .state('product', {
+      url: '/product',
+      templateUrl: '/admin/product',
+      controller: 'productController'
+    })
+    .state('productdef', {
+      url: '/productdef',
+      templateUrl: '/admin/productdef',
+      controller: 'productDefController',
+      params: {
+        product: null
+      }
+    });
 });
 /*
 ngApp.service('modalService', ['$uibModal',
