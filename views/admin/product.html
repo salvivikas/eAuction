@@ -1,99 +1,99 @@
 <head>
-    <title>Product</title>
+  <title>Product</title>
 </head>
 
 <body>
-    <h4>Product</h4>
-    <hr/>
-    <div>
-        <input type="button" name="addProduct" value="Add Product" class="btn btn-primary space" ng-click="openAdd()">
-        <span class="glyphicon glyphicon-refresh button-refresh" ng-click="refresh()"></span>
-    </div>
-    <table st-table="displayedCollection" st-safe-src="products" class="table table-hover table-condensed">
-        <thead>
-            <tr>
-                <!--<th st-sort="Id">ID</th>-->
-                <!--<th st-sort="CategoryId">Category Id</th>-->
-                <th st-sort="CategoryName">Category Name</th>
-                <th st-sort="ProductCode">Product Code</th>
-                <th st-sort="ProductName">Product Name</th>
-                <!--<th st-sort="IsActive">IsActive</th>-->
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="product in displayedCollection">
-                <!--<td>{{product.Id}}</td>-->
-                <!--<td>{{product.CategoryId}}</td>-->
-                <td>{{product.CategoryName}}</td>
-                <td>{{product.ProductCode}}</td>
-                <td>{{product.ProductName}}</td>
-                <!--<td>{{product.IsActive}}</td>-->
-                <td>
-                    <span ng-click="openEdit(product)" class="btn btn-primary">Edit</span>
-                    <span ng-click="delete(product)" class="btn btn-danger">Delete</span>
-                </td>
-                <td>
-                    <span ng-click="openProductDef(product)" class="btn btn-primary">Product Definition</span>                    
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5" class="text-center">
-                    <div st-pagination="" st-items-by-page="10"></div>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+  <h4>Product</h4>
+  <hr/>
+  <div>
+    <input type="button" name="addProduct" value="Add Product" class="btn btn-primary space" ng-click="openAdd()">
+    <span class="glyphicon glyphicon-refresh button-refresh" ng-click="refresh()"></span>
+  </div>
+  <table st-table="displayedCollection" st-safe-src="products" class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <!--<th st-sort="Id">ID</th>-->
+        <!--<th st-sort="CategoryId">Category Id</th>-->
+        <th st-sort="CategoryName">Category Name</th>
+        <th st-sort="ProductCode">Product Code</th>
+        <th st-sort="ProductName">Product Name</th>
+        <!--<th st-sort="IsActive">IsActive</th>-->
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in displayedCollection">
+        <!--<td>{{product.Id}}</td>-->
+        <!--<td>{{product.CategoryId}}</td>-->
+        <td>{{product.CategoryName}}</td>
+        <td>{{product.ProductCode}}</td>
+        <td>{{product.ProductName}}</td>
+        <!--<td>{{product.IsActive}}</td>-->
+        <td>
+          <span ng-click="openEdit(product)" class="btn btn-primary">Edit</span>
+          <span ng-click="delete(product)" class="btn btn-danger">Delete</span>
+        </td>
+        <td>
+          <span ng-click="openProductDef(product)" class="btn btn-primary">Product Definition</span>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" class="text-center">
+          <div st-pagination="" st-items-by-page="10"></div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 
-    <!-- Modal -->
-    <div id="myModal" class="modal" role="dialog">
-        <div class="modal-dialog">
+  <!-- Modal -->
+  <div id="myModal" class="modal" role="dialog">
+    <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" ng-click="cancelModal()">&times;</button>
-                    <h4 class="modal-title">{{mode}} Product</h4>
-                </div>
-                <div class="modal-body">
-                    <ul class="error" ng-repeat="error in serverErrors">
-                        <li>{{error}}</li>
-                    </ul>
-                    <form name="productform" id="productform" novalidate>
-                        <div class="form-group"  ng-class="{ 'has-error' : productform.categorySelect.$invalid && !productform.categoryid.$pristine }">
-                            <label>Category:</label>
-                            <select class="form-control" name="categorySelect" ng-model="product.CategoryId" ng-options="category.Id as category.CategoryName for category in categories"
-                                required> 
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" ng-click="cancelModal()">&times;</button>
+          <h4 class="modal-title">{{mode}} Product</h4>
+        </div>
+        <div class="modal-body">
+          <ul class="error" ng-repeat="error in serverErrors">
+            <li>{{error}}</li>
+          </ul>
+          <form name="productform" id="productform" novalidate>
+            <div class="form-group" ng-class="{ 'has-error' : productform.categorySelect.$invalid && !productform.categoryid.$pristine }">
+              <label>Category:</label>
+              <select class="form-control" name="categorySelect" ng-model="product.CategoryId" ng-options="category.Id as category.CategoryName for category in categories"
+                required>
                                 <option value="">Select Category</option>
                             </select>
-                            <span class="help-block" ng-show="productform.categorySelect.$dirty && productform.categorySelect.$invalid">Select Category</span>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : productform.productcode.$invalid && !productform.productcode.$pristine }">
-                            <label>Product Code:</label>
-                            <input class="form-control" name="productcode" ng-model="product.ProductCode" required ng-maxlength="10">
-                            <div class="help-block" ng-messages="productform.productcode.$error" ng-if="!productform.productcode.$pristine">
-                                <p ng-message="maxlength">Product code is too long.</p>
-                                <p ng-message="required">Product code is required.</p>
-                            </div>
-                        </div>
-                        <div class="form-group" ng-class="{ 'has-error' : productform.productname.$invalid && !productform.productname.$pristine }">
-                            <label>Product Name:</label>
-                            <input class="form-control" name="productname" ng-model="product.ProductName" required ng-maxlength="20">
-                            <div class="help-block" ng-messages="productform.productname.$error" ng-if="!productform.productname.$pristine">
-                                <p ng-message="maxlength">Product name is too long.</p>
-                                <p ng-message="required">Product name is required.</p>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" ng-disabled="productform.$invalid" ng-click="saveModal(productform.$valid)">Save</button>
-                    <button type="button" class="btn btn-default" ng-click="cancelModal()">Cancel</button>
-                </div>
+              <span class="help-block" ng-show="productform.categorySelect.$dirty && productform.categorySelect.$invalid">Select Category</span>
             </div>
+            <div class="form-group" ng-class="{ 'has-error' : productform.productcode.$invalid && !productform.productcode.$pristine }">
+              <label>Product Code:</label>
+              <input class="form-control" name="productcode" ng-model="product.ProductCode" required ng-maxlength="10">
+              <div class="help-block" ng-messages="productform.productcode.$error" ng-if="!productform.productcode.$pristine">
+                <p ng-message="maxlength">Product code is too long.</p>
+                <p ng-message="required">Product code is required.</p>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : productform.productname.$invalid && !productform.productname.$pristine }">
+              <label>Product Name:</label>
+              <input class="form-control" name="productname" ng-model="product.ProductName" required ng-maxlength="20">
+              <div class="help-block" ng-messages="productform.productname.$error" ng-if="!productform.productname.$pristine">
+                <p ng-message="maxlength">Product name is too long.</p>
+                <p ng-message="required">Product name is required.</p>
+              </div>
+            </div>
+          </form>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" ng-disabled="productform.$invalid" ng-click="saveModal(productform.$valid)">Save</button>
+          <button type="button" class="btn btn-default" ng-click="cancelModal()">Cancel</button>
+        </div>
+      </div>
     </div>
+  </div>
 </body>

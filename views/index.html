@@ -2,74 +2,74 @@
 <html>
 
 <head>
-    <title>eAuction - Home</title>
-    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="stylesheets/style.css">
-    <script src="components/jquery/dist/jquery.min.js"></script>
-    <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="components/angular/angular.min.js"></script>
-    <script src="components/angular-messages/angular-messages.min.js"></script>
-    <script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="components/angular-smart-table/dist/smart-table.min.js"></script>
-    <script src="components/angular-file-saver/dist/angular-file-saver.bundle.min.js"></script>
+  <title>eAuction - Home</title>
+  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <script src="components/jquery/dist/jquery.min.js"></script>
+  <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="components/angular/angular.min.js"></script>
+  <script src="components/angular-messages/angular-messages.min.js"></script>
+  <script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="components/angular-smart-table/dist/smart-table.min.js"></script>
+  <script src="components/angular-file-saver/dist/angular-file-saver.bundle.min.js"></script>
 
-    <script src="javascripts/ngApp.js"></script>
+  <script src="javascripts/ngApp.js"></script>
 
-    <script src="javascripts/services/modalService.js"></script>
-    <script src="javascripts/services/utilService.js"></script>
-    <script src="javascripts/services/categoryService.js"></script>
-    <script src="javascripts/services/productService.js"></script>
+  <script src="javascripts/services/modalService.js"></script>
+  <script src="javascripts/services/utilService.js"></script>
+  <script src="javascripts/services/categoryService.js"></script>
+  <script src="javascripts/services/productService.js"></script>
 
-    <script src="javascripts/controllers/adminIndexController.js"></script>
-    <script src="javascripts/controllers/categoryController.js"></script>
-    <script src="javascripts/controllers/productController.js"></script>
-    <script src="javascripts/controllers/productDefController.js"></script>
+  <script src="javascripts/controllers/adminIndexController.js"></script>
+  <script src="javascripts/controllers/categoryController.js"></script>
+  <script src="javascripts/controllers/productController.js"></script>
+  <script src="javascripts/controllers/productDefController.js"></script>
 </head>
 
 <body ng-app="ngApp" ng-controller="adminIndexController">
-    <!-- NAVIGATION -->
-    <nav class="navbar navbar-inverse" role="navigation">
-        <div class="navbar-header">
-            <a class="navbar-brand" ui-sref="home">eAuction</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"/></a>
-                <ul class="dropdown-menu">
-                    <li><a ui-sref="category">Category</a></li>
-                    <li><a ui-sref="product">Product</a></li>
-                    <!--<li><a ui-sref="productdef">Product Definition</a></li>-->
-                </ul>
-            </li>
-            <li><a ui-sref="about">About</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <button uib-popover-template="logoutPopover.templateUrl" popover-placement="bottom-right" type="button" id="btn-logout"><span class="glyphicon glyphicon-user "></span> Welcome, [[username]]</button>
-            </li>
-        </ul>
-    </nav>
-
-    <!-- MAIN CONTENT -->
-    <div class="container ">
-        <div ui-view></div>
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" ui-sref="home">eAuction</a>
     </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"/></a>
+        <ul class="dropdown-menu">
+          <li><a ui-sref="category">Category</a></li>
+          <li><a ui-sref="product">Product</a></li>
+          <!--<li><a ui-sref="productdef">Product Definition</a></li>-->
+        </ul>
+      </li>
+      <li><a ui-sref="about">About</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <button uib-popover-template="logoutPopover.templateUrl" popover-placement="bottom-right" type="button" id="btn-logout"><span class="glyphicon glyphicon-user "></span> Welcome, [[username]]</button>
+      </li>
+    </ul>
+  </nav>
 
-    <!-- Logout popover template -->
-    <script type="text/ng-template " id="logoutPopover.html ">
-        <div id="logout">
-            </style>
-            <div id="logout-body">
-                <p class="text-info">[[username]]</p>
-                <p class="text-info">[[email]]</p>
-                <a href="#">Change Password</a>
-            </div>
-            <div class="clearfix" id="logout-footer">
-                <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-log-out"></span> Log out</button>
-            </div>
-        </div>
-    </script>
+  <!-- MAIN CONTENT -->
+  <div class="container ">
+    <div ui-view></div>
+  </div>
+
+  <!-- Logout popover template -->
+  <script type="text/ng-template " id="logoutPopover.html ">
+    <div id="logout">
+      </style>
+      <div id="logout-body">
+        <p class="text-info">[[username]]</p>
+        <p class="text-info">[[email]]</p>
+        <a href="#">Change Password</a>
+      </div>
+      <div class="clearfix" id="logout-footer">
+        <button class="btn btn-primary pull-right"><span class="glyphicon glyphicon-log-out"></span> Log out</button>
+      </div>
+    </div>
+  </script>
 </body>
 
 </html>
