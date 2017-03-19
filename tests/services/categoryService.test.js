@@ -159,20 +159,18 @@ describe('CategoryService Service', function () {
     });
   });
 
-
-  /*
   describe('edit(category)', function () {
     it('should be defined', function () {
       expect(CategoryService.edit).toBeDefined();
     });
 
     it('should modify a category and return list of existing categories', function () {
-      $httpBackend.whenPUT('/admin/category/').respond(200, categoryList);
+      $httpBackend.whenPUT('/admin/category/1').respond(200, categoryList);
 
       expect(CategoryService.edit).not.toHaveBeenCalled();
       expect(result).toEqual({});
 
-      var category = { Id: "1" };
+      var category = { Id: 1 };
 
       CategoryService.edit(category)
         .then(function (res) {
@@ -187,17 +185,17 @@ describe('CategoryService Service', function () {
       expect(result.data.length).toBe(2);
 
       expect(result.data[0].Id).toBe(1);
-      expect(result.data[0].CategoryCode).toBe("C01");
-      expect(result.data[0].CategoryName).toBe("Automobiles");
+      expect(result.data[0].CategoryCode).toBe('C01');
+      expect(result.data[0].CategoryName).toBe('Automobiles');
     });
 
     it('should return success as false and an error message if modified category data exist in other categories', function () {
-      $httpBackend.whenPOST('/admin/category').respond(200, { "success": false, "data": "error message" });
+      $httpBackend.whenPUT('/admin/category/1').respond(200, { 'success': false, 'data': 'error message' });
 
       expect(CategoryService.add).not.toHaveBeenCalled();
       expect(result).toEqual({});
 
-      var category = {};
+      var category = { Id: 1 };
 
       CategoryService.edit(category)
         .then(function (res) {
@@ -208,18 +206,18 @@ describe('CategoryService Service', function () {
 
       expect(result.success).toEqual(false);
 
-      expect(result.data).toBe("error message");
+      expect(result.data).toBe('error message');
     });
 
     it('should send an error message in case of any error on server', function () {
-      $httpBackend.whenPOST('/admin/category').respond(422, errorMessage);
+      $httpBackend.whenPUT('/admin/category/1').respond(422, errorMessage);
 
       expect(CategoryService.getAll).not.toHaveBeenCalled();
       expect(result).toEqual({});
 
-      var category = {};
+      var category = { Id: 1 };
 
-      CategoryService.add(category)
+      CategoryService.edit(category)
         .then(function (res) {
           result = res;
         }, function (res) {
@@ -229,6 +227,6 @@ describe('CategoryService Service', function () {
       $httpBackend.flush();
       expect(result).toEqual(errorMessage);
     });
-  })*/
+  });
 
 });
