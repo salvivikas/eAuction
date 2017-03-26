@@ -119,7 +119,7 @@ angular.module('ngApp').controller('productDefController', ['$scope', '$http', '
         responseType: 'blob'
       }).then(function (response) {
         var type = response.headers('Content-Type');
-        var blob = new Blob([data], { type: type });
+        var blob = new Blob([response.data], { type: type });
         //var fileName = headers('content-disposition');
         var fileName = response.headers('content-disposition').match(/filename="(.+)"/)[1];
         FileSaver.saveAs(blob, fileName);
